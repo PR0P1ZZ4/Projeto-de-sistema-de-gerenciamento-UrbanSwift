@@ -25,7 +25,7 @@ public class TipoUsuario {
     // colun configura a coluna
     // nullable se pode ser nulo ou nao
     @Column(name = "tipo_usuario_id", nullable = false)
-    private Integer tipoUsuarioId;
+    private Integer tipoUsuario;
 
     @Column(name = "descricao", nullable = false, columnDefinition = "TEXT")
     private String descricao;
