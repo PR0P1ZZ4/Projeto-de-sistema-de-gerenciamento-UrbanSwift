@@ -23,7 +23,7 @@ public class VeiculosController {
 
     // Listar Todos
     @GetMapping
-    @Operation(summary = "Lista todos os tipos de usuário", description = "Retorna uma lista com todos os tipos de usuário cadastrados.")
+    @Operation(summary = "Lista todos os veiculos", description = "Retorna uma lista com todos os veiculos cadastrados.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     public ResponseEntity<List<Veiculos>> listarEntregas() {
         List<Veiculos> veiculos = veiculosService.findAll();
@@ -32,17 +32,17 @@ public class VeiculosController {
 
     // Buscar por ID
     @GetMapping("/{id}")
-    @Operation(summary = "Busca um tipo de usuário por ID", description = "Retorna um tipo de usuário específico com base no seu ID.")
+    @Operation(summary = "Busca um veiculo por ID", description = "Retorna um veiculo específico com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário encontrado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Veiculo encontrado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Veiculo não encontrado para o ID informado")
     })
     public ResponseEntity<?> buscarVeiculosPorId(@PathVariable Integer id) {
         Veiculos veiculos = veiculosService.buscarPorId(id);
 
         if (veiculos == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Endereços não encontrado!");
+                    .body("Veiculo não encontrado!");
         }
 
         return ResponseEntity.ok(veiculos);
@@ -50,9 +50,9 @@ public class VeiculosController {
 
     // Inserir Novo
     @PostMapping
-    @Operation(summary = "Cadastra um novo tipo de usuário", description = "Adiciona um novo tipo de usuário ao banco de dados.")
+    @Operation(summary = "Cadastra um novo veiculo", description = "Adiciona um novo veiculo ao banco de dados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Tipo de usuário cadastrado com sucesso"),
+            @ApiResponse(responseCode = "201", description = "Veiculo cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos para o cadastro")
     })
     public ResponseEntity<Veiculos> inserirVeiculos(@RequestBody Veiculos veiculos) {
@@ -67,17 +67,17 @@ public class VeiculosController {
 
     // Atualizar
     @PutMapping("/{id}")
-    @Operation(summary = "Atualiza um tipo de usuário existente", description = "Altera os dados de um tipo de usuário com base no seu ID.")
+    @Operation(summary = "Atualiza um veiculo existente", description = "Altera os dados de um veiculo com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Veiculo atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Veiculo não encontrado para o ID informado")
     })
     public ResponseEntity<?> atualizarVeiculos(@PathVariable Integer id, @RequestBody Veiculos veiculos) {
         Veiculos veiculosAtualizado = veiculosService.atualizar(id, veiculos);
 
         if (veiculosAtualizado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Tipo de usuário não encontrado!");
+                    .body("Veiculo não encontrado!");
         }
 
         return ResponseEntity.ok(veiculosAtualizado);
@@ -85,19 +85,19 @@ public class VeiculosController {
 
     // Deletar
     @DeleteMapping("/{id}")
-    @Operation(summary = "Exclui um tipo de usuário", description = "Remove um tipo de usuário do banco de dados com base no seu ID.")
+    @Operation(summary = "Exclui um veiculo", description = "Remove um veiculo do banco de dados com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Veiculo excluído com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Veiculo não encontrado para o ID informado")
     })
     public ResponseEntity<?> deletarVeiculos(@PathVariable Integer id) {
         Veiculos deletado = veiculosService.deletar(id);
 
         if (deletado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Não foi possível excluir, pois o tipo de usuário não foi encontrado.");
+                    .body("Não foi possível excluir, pois o veiculo não foi encontrado.");
         }
 
-        return ResponseEntity.ok("Tipo de usuário excluído com sucesso!");
+        return ResponseEntity.ok("Veiculo excluído com sucesso!");
     }
 }

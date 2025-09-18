@@ -24,7 +24,7 @@ public class EntregasController {
 
     // Listar Todos
     @GetMapping
-    @Operation(summary = "Lista todos os tipos de usuário", description = "Retorna uma lista com todos os tipos de usuário cadastrados.")
+    @Operation(summary = "Lista todos os entregadores", description = "Retorna uma lista com todos os entregadores cadastrados.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     public ResponseEntity<List<Entregas>> listarEntregas() {
         List<Entregas> entregas = entregasService.findAll();
@@ -33,17 +33,17 @@ public class EntregasController {
 
     // Buscar por ID
     @GetMapping("/{id}")
-    @Operation(summary = "Busca um tipo de usuário por ID", description = "Retorna um tipo de usuário específico com base no seu ID.")
+    @Operation(summary = "Busca um entregador por ID", description = "Retorna um entregador específico com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário encontrado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Entregador encontrado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Entregador não encontrado para o ID informado")
     })
     public ResponseEntity<?> buscarEnderecosPorId(@PathVariable Integer id) {
         Entregas entregas = entregasService.buscarPorId(id);
 
         if (entregas == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Endereços não encontrado!");
+                    .body("Entregador não encontrado!");
         }
 
         return ResponseEntity.ok(entregas);
@@ -51,9 +51,9 @@ public class EntregasController {
 
     // Inserir Novo
     @PostMapping
-    @Operation(summary = "Cadastra um novo tipo de usuário", description = "Adiciona um novo tipo de usuário ao banco de dados.")
+    @Operation(summary = "Cadastra um novo entregador", description = "Adiciona um novo entregador ao banco de dados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Tipo de usuário cadastrado com sucesso"),
+            @ApiResponse(responseCode = "201", description = "Entregador cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos para o cadastro")
     })
     public ResponseEntity<Entregas> inserirEntregas(@RequestBody Entregas entregas) {
@@ -68,17 +68,17 @@ public class EntregasController {
 
     // Atualizar
     @PutMapping("/{id}")
-    @Operation(summary = "Atualiza um tipo de usuário existente", description = "Altera os dados de um tipo de usuário com base no seu ID.")
+    @Operation(summary = "Atualiza um entregador existente", description = "Altera os dados de um entregador com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Entregador atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Entregador não encontrado para o ID informado")
     })
     public ResponseEntity<?> atualizarEntregas(@PathVariable Integer id, @RequestBody Entregas entregas) {
         Entregas entregasAtualizado = entregasService.atualizar(id, entregas);
 
         if (entregasAtualizado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Tipo de usuário não encontrado!");
+                    .body("Entregador não encontrado!");
         }
 
         return ResponseEntity.ok(entregasAtualizado);
@@ -86,19 +86,19 @@ public class EntregasController {
 
     // Deletar
     @DeleteMapping("/{id}")
-    @Operation(summary = "Exclui um tipo de usuário", description = "Remove um tipo de usuário do banco de dados com base no seu ID.")
+    @Operation(summary = "Exclui um entregador", description = "Remove um entregador do banco de dados com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Entregador excluído com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Entregador não encontrado para o ID informado")
     })
     public ResponseEntity<?> deletarEntregas(@PathVariable Integer id) {
         Entregas deletado = entregasService.deletar(id);
 
         if (deletado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Não foi possível excluir, pois o tipo de usuário não foi encontrado.");
+                    .body("Não foi possível excluir, pois o entregador não foi encontrado.");
         }
 
-        return ResponseEntity.ok("Tipo de usuário excluído com sucesso!");
+        return ResponseEntity.ok("Entregador excluído com sucesso!");
     }
 }

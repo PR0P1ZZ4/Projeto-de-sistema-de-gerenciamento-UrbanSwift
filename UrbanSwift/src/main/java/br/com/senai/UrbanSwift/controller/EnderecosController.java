@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/entregas")
+@RequestMapping("/api/endereco")
 public class EnderecosController {
 
     private final EnderecosService enderecosService;
@@ -25,7 +25,7 @@ public class EnderecosController {
 
     // Listar Todos
     @GetMapping
-    @Operation(summary = "Lista todos os tipos de usuário", description = "Retorna uma lista com todos os tipos de usuário cadastrados.")
+    @Operation(summary = "Lista todos os enderecos", description = "Retorna uma lista com todos os enderecos cadastrados.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     public ResponseEntity<List<Enderecos>> listarEnderecos() {
         List<Enderecos> enderecos = enderecosService.findAll();
@@ -34,17 +34,17 @@ public class EnderecosController {
 
     // Buscar por ID
     @GetMapping("/{id}")
-    @Operation(summary = "Busca um tipo de usuário por ID", description = "Retorna um tipo de usuário específico com base no seu ID.")
+    @Operation(summary = "Busca um enderecos por ID", description = "Retorna um enderecos específico com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário encontrado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Enderecos encontrado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Enderecos não encontrado para o ID informado")
     })
     public ResponseEntity<?> buscarEnderecosPorId(@PathVariable Integer id) {
         Enderecos enderecos = enderecosService.buscarPorId(id);
 
         if (enderecos == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Endereços não encontrado!");
+                    .body("Endereço não encontrado!");
         }
 
         return ResponseEntity.ok(enderecos);
@@ -52,9 +52,9 @@ public class EnderecosController {
 
     // Inserir Novo
     @PostMapping
-    @Operation(summary = "Cadastra um novo tipo de usuário", description = "Adiciona um novo tipo de usuário ao banco de dados.")
+    @Operation(summary = "Cadastra um novo endereço", description = "Adiciona um novo endereço ao banco de dados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Tipo de usuário cadastrado com sucesso"),
+            @ApiResponse(responseCode = "201", description = "Endereço cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos para o cadastro")
     })
     public ResponseEntity<Enderecos> inserirEnderecos(@RequestBody Enderecos enderecos) {
@@ -69,17 +69,17 @@ public class EnderecosController {
 
     // Atualizar
     @PutMapping("/{id}")
-    @Operation(summary = "Atualiza um tipo de usuário existente", description = "Altera os dados de um tipo de usuário com base no seu ID.")
+    @Operation(summary = "Atualiza um endereço existente", description = "Altera os dados de um endereço com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado para o ID informado")
     })
     public ResponseEntity<?> atualizarEnderecos(@PathVariable Integer id, @RequestBody Enderecos enderecos) {
         Enderecos enderecosAtualizado = enderecosService.atualizar(id, enderecos);
 
         if (enderecosAtualizado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Tipo de usuário não encontrado!");
+                    .body("Endereço não encontrado!");
         }
 
         return ResponseEntity.ok(enderecosAtualizado);
@@ -87,19 +87,19 @@ public class EnderecosController {
 
     // Deletar
     @DeleteMapping("/{id}")
-    @Operation(summary = "Exclui um tipo de usuário", description = "Remove um tipo de usuário do banco de dados com base no seu ID.")
+    @Operation(summary = "Exclui um endereço", description = "Remove um endereço do banco de dados com base no seu ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tipo de usuário excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Tipo de usuário não encontrado para o ID informado")
+            @ApiResponse(responseCode = "200", description = "Endereço excluído com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado para o ID informado")
     })
     public ResponseEntity<?> deletarEnderecos(@PathVariable Integer id) {
         Enderecos deletado = enderecosService.deletar(id);
 
         if (deletado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Não foi possível excluir, pois o tipo de usuário não foi encontrado.");
+                    .body("Não foi possível excluir, pois o endereço não foi encontrado.");
         }
 
-        return ResponseEntity.ok("Tipo de usuário excluído com sucesso!");
+        return ResponseEntity.ok("Endereço excluído com sucesso!");
     }
 }
