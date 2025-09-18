@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuario")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
     }
 
     // Listar Todos
@@ -27,7 +24,6 @@ public class UsuarioController {
     @Operation(summary = "Lista todos os usuário", description = "Retorna uma lista com todos os usuário cadastrados.")
     @ApiResponse(responseCode = "200", description = "Operação bem-sucedida")
     public ResponseEntity<List<Usuario>> listarUsuario() {
-        List<Usuario> usuario = usuarioService.findAll();
         return ResponseEntity.ok(usuario);
     }
 
@@ -39,14 +35,11 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "usuário não encontrado para o ID informado")
     })
     public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
-        Usuario usuario = usuarioService.buscarPorId(id);
 
-        if (usuario == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("usuário não encontrado!");
         }
 
-        return ResponseEntity.ok(usuario);
     }
 
     // Inserir Novo
