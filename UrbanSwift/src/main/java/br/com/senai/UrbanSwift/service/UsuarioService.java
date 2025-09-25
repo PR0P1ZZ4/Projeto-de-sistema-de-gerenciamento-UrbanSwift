@@ -3,14 +3,17 @@ package br.com.senai.UrbanSwift.service;
 import br.com.senai.UrbanSwift.model.Usuario;
 import br.com.senai.UrbanSwift.repository.TipoUsuarioRepository;
 import br.com.senai.UrbanSwift.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
+    private final PasswordEncoder passwordEncoder;
     private UsuarioRepository usuarioRepository;
-    public UsuarioService(UsuarioRepository repo) {
+    public UsuarioService(PasswordEncoder passwordEncoder, UsuarioRepository repo) {
+        this.passwordEncoder = passwordEncoder;
         this.usuarioRepository = repo;
     }
 
@@ -26,8 +29,15 @@ public class UsuarioService {
 
     // Cadastrar
     public Usuario cadastrarUsuario(Usuario usuario) {
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+
+        usuario.setSenha(senhaCriptografada);
+
+
         return usuarioRepository.save(usuario);
     }
+
+
 
     // Atualizar
     public Usuario atualizarUsuario(Integer id, Usuario usuarioNovo) {
